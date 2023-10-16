@@ -1,0 +1,37 @@
+﻿@model FIT5032_Assignment_Portfolio_V1._0.Models.EmailFormModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Contact Us</h2>
+
+@using (Html.BeginForm("Contact", "Email", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FromName)
+        @Html.TextBoxFor(model => model.FromName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.FromName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FromEmail)
+        @Html.TextBoxFor(model => model.FromEmail, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.FromEmail)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Message)
+        @Html.TextAreaFor(model => model.Message, new { @class = "form-control", rows = "5" })
+        @Html.ValidationMessageFor(model => model.Message)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send</button>
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
