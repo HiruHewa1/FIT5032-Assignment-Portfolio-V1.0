@@ -14,6 +14,7 @@ namespace FIT5032_Assignment_Portfolio_V1._0.Models
         public bool BrowserRemembered { get; set; }
     }
 
+
     public class ManageLoginsViewModel
     {
         public IList<UserLoginInfo> CurrentLogins { get; set; }

@@ -57,7 +57,29 @@
                 @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
             </section>
         </div>
-    </div>
+    </div> 
+    <h4>Alter Font size</h4>
+    <button id="increaseFont">A+</button>
+    <button id="decreaseFont">A-</button>
+    <button id="resetFont">Reset</button>
+    <script>
+        let currentFontSize = 16; // default size in pixels
+
+        document.getElementById('increaseFont').addEventListener('click', function () {
+            currentFontSize += 2;
+            document.body.style.fontSize = currentFontSize + "px";
+        });
+
+        document.getElementById('decreaseFont').addEventListener('click', function () {
+            currentFontSize -= 2;
+            document.body.style.fontSize = currentFontSize + "px";
+        });
+
+        document.getElementById('resetFont').addEventListener('click', function () {
+            currentFontSize = 16;
+            document.body.style.fontSize = currentFontSize + "px";
+        });
+    </script>
 </main>
 
 @section Scripts {
