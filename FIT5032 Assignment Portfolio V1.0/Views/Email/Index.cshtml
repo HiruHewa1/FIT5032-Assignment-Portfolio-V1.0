@@ -6,9 +6,16 @@
 
 <h2>Contact Us</h2>
 
-@using (Html.BeginForm("Contact", "Email", FormMethod.Post))
+@using (Html.BeginForm("Contact", "Email", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.Label("Attachment")
+        <input type="file" name="Attachment" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send</button>
 
     <div class="form-group">
         @Html.LabelFor(model => model.FromName)
@@ -29,6 +36,8 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Send</button>
+
+
 }
 
 @if (ViewBag.Error != null)

@@ -17,5 +17,7 @@ namespace FIT5032_Assignment_Portfolio_V1._0.Models
         public string FromEmail { get; set; }
         [Required]
         public string Message { get; set; }
+
+        public HttpPostedFileBase Attachment { get; set; }
     }
 }

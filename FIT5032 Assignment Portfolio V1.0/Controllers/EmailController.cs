@@ -43,31 +43,39 @@ namespace FIT5032_Assignment_Portfolio_V1._0.Controllers
             message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
             message.IsBodyHtml = true;
 
-            using (var smtp = new SmtpClient())
+            // Check for attachment and add to email if present
+            if (model.Attachment != null && model.Attachment.ContentLength > 0)
             {
-                
-                var credential = new NetworkCredential
-                {
-                    UserName = "hiru.hewa98@gmail.com",  // replace with your email
-                    Password = "hzcj qdlu zukb zltw"              // replace with your password
-                };
-
-                smtp.Credentials = credential;
-                smtp.Host = "smtp.gmail.com";  // Corrected the SMTP server for Gmail
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-
-                try
-                {
-                    await smtp.SendMailAsync(message);
-                    return RedirectToAction("Sent");
-                }
-                catch
-                {
-                    ViewBag.Error = "There was an error sending the email. Please try again later.";
-                    return View(model);
-                }
+                var fileName = System.IO.Path.GetFileName(model.Attachment.FileName);
+                var attachment = new Attachment(model.Attachment.InputStream, fileName);
+                message.Attachments.Add(attachment);
             }
+                using (var smtp = new SmtpClient())
+                {
+
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "hiru.hewa98@gmail.com",  // replace with your email
+                        Password = "hzcj qdlu zukb zltw"              // replace with your password
+                    };
+
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";  // Corrected the SMTP server for Gmail
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+
+                    try
+                    {
+                        await smtp.SendMailAsync(message);
+                        return RedirectToAction("Sent");
+                    }
+                    catch
+                    {
+                        ViewBag.Error = "There was an error sending the email. Please try again later.";
+                        return View(model);
+                    }
+                }
+            
         }
 
         // This action returns a view when the email is sent successfully.
