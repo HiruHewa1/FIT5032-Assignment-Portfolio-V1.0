@@ -6,137 +6,114 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using FIT5032_Assignment_Portfolio_V1._0.Context;
 using FIT5032_Assignment_Portfolio_V1._0.Models;
 
 namespace FIT5032_Assignment_Portfolio_V1._0.Controllers
 {
-    public class PatientsController : Controller
+    public class RatingsController : Controller
     {
-        private UltrasoundDbContext db = new UltrasoundDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Patients
+        // GET: Ratings
         public ActionResult Index()
         {
-            return View(db.Patients.ToList());
+            return View(db.Ratings.ToList());
         }
 
-        // GET: Patients/Details/5
-        public ActionResult Details(int? id)
+        // GET: Ratings/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Patient patient = db.Patients.Find(id);
-            if (patient == null)
+            Rating rating = db.Ratings.Find(id);
+            if (rating == null)
             {
                 return HttpNotFound();
             }
-            return View(patient);
+            return View(rating);
         }
 
-        // GET: Patients/Create
+        // GET: Ratings/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Patients/Create
+        // POST: Ratings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PatientId,FirstName,LastName,Email,DateOfBirth")] Patient patient)
+        public ActionResult Create([Bind(Include = "UserID,Description,RatingValue")] Rating rating)
         {
             if (ModelState.IsValid)
             {
-                db.Patients.Add(patient);
+                db.Ratings.Add(rating);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(patient);
+            return View(rating);
         }
 
-        // GET: Patients/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Ratings/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Patient patient = db.Patients.Find(id);
-            if (patient == null)
+            Rating rating = db.Ratings.Find(id);
+            if (rating == null)
             {
                 return HttpNotFound();
             }
-            return View(patient);
+            return View(rating);
         }
 
-        // POST: Patients/Edit/5
+        // POST: Ratings/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PatientId,FirstName,LastName,Email,DateOfBirth")] Patient patient)
+        public ActionResult Edit([Bind(Include = "UserID,Description,RatingValue")] Rating rating)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(patient).State = EntityState.Modified;
+                db.Entry(rating).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(patient);
+            return View(rating);
         }
 
-        // GET: Patients/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Ratings/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Patient patient = db.Patients.Find(id);
-            if (patient == null)
+            Rating rating = db.Ratings.Find(id);
+            if (rating == null)
             {
                 return HttpNotFound();
             }
-            return View(patient);
+            return View(rating);
         }
 
-        // POST: Patients/Delete/5
+        // POST: Ratings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            Patient patient = db.Patients.Find(id);
-            db.Patients.Remove(patient);
+            Rating rating = db.Ratings.Find(id);
+            db.Ratings.Remove(rating);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        [HttpGet]
-        public ActionResult LoadData()
-        {
-            // Fetch all patients
-            var patientsData = db.Patients.ToList();
-
-            // Return as JSON
-            return Json(new
-            {
-                data = patientsData.Select(p => new
-                {
-                    p.PatientId,
-                    p.FirstName,
-                    p.LastName,
-                    p.Email,
-                    DateOfBirth = p.DateOfBirth.ToString("yyyy-MM-dd"),
-                    Actions = p.PatientId // We'll handle this client-side
-                })
-            }, JsonRequestBehavior.AllowGet);
-        }
-
 
         protected override void Dispose(bool disposing)
         {
