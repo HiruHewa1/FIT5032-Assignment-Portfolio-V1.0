@@ -10,31 +10,50 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ReportId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ReportId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ReportId })
-        </td>
-    </tr>
-}
+<!-- DataTables Styles -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
 
+<table id="reportsTable" class="table">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- DataTables will populate this section via AJAX -->
+    </tbody>
 </table>
+
+@section scripts{
+    <!-- DataTables and jQuery Scripts -->
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#reportsTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '@Url.Action("LoadData", "Reports")',
+                    type: 'GET'
+                },
+                columns: [
+                    { data: 'Description' },
+                    { data: 'Date' },
+                    {
+                        data: 'Actions',
+                        render: function(data, type, row) {
+                            return '<a href="/Reports/Edit/' + data + '">Edit</a>' +
+                                   ' | <a href="/Reports/Details/' + data + '">Details</a>' +
+                                   ' | <a href="/Reports/Delete/' + data + '">Delete</a>';
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}

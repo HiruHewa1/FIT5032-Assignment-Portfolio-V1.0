@@ -116,6 +116,25 @@ namespace FIT5032_Assignment_Portfolio_V1._0.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult LoadData()
+        {
+            // Fetch all reports
+            var reportData = db.Reports.ToList();
+
+            // Return as JSON
+            return Json(new
+            {
+                data = reportData.Select(r => new
+                {
+                    r.ReportId,
+                    r.Description,
+                    Date = r.Date.ToString("yyyy-MM-dd"),
+                    Actions = r.ReportId // We'll handle this client-side
+                })
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
