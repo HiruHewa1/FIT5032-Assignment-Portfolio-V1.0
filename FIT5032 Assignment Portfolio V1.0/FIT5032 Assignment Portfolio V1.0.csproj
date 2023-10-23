@@ -216,6 +216,18 @@
     <Compile Include="Migrations\202310220848302_ratingfile.designer.cs">
       <DependentUpon>202310220848302_ratingfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310230449446_Alter.cs" />
+    <Compile Include="Migrations\202310230449446_Alter.designer.cs">
+      <DependentUpon>202310230449446_Alter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310230454219_Alterkey.cs" />
+    <Compile Include="Migrations\202310230454219_Alterkey.designer.cs">
+      <DependentUpon>202310230454219_Alterkey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310230506557_Alteruid.cs" />
+    <Compile Include="Migrations\202310230506557_Alteruid.designer.cs">
+      <DependentUpon>202310230506557_Alteruid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -386,6 +398,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310220848302_ratingfile.resx">
       <DependentUpon>202310220848302_ratingfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310230449446_Alter.resx">
+      <DependentUpon>202310230449446_Alter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310230454219_Alterkey.resx">
+      <DependentUpon>202310230454219_Alterkey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310230506557_Alteruid.resx">
+      <DependentUpon>202310230506557_Alteruid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

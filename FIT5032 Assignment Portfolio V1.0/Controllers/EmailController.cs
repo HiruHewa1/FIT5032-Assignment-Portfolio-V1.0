@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace FIT5032_Assignment_Portfolio_V1._0.Controllers
 {
+    [Authorize]
     public class EmailController : Controller
     {
         // GET: Email

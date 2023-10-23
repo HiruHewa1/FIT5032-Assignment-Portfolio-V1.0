@@ -15,7 +15,7 @@ namespace FIT5032_Assignment_Portfolio_V1._0.Context
         public DbSet<Image> Images { get; set; }
 
         public DbSet<Rating> Ratings { get; set; }
-
+            
     }
 }
     

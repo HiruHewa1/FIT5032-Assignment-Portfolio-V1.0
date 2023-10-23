@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace FIT5032_Assignment_Portfolio_V1._0.Controllers
 {
+    [Authorize]
     public class RatingController : Controller
     {
         private UltrasoundDbContext db = new UltrasoundDbContext();
@@ -19,7 +20,28 @@ namespace FIT5032_Assignment_Portfolio_V1._0.Controllers
         // GET: Rating
         public ActionResult Index()
         {
-            return View(db.Ratings.ToList());
+            if (db.Ratings.Any())
+            {
+                ViewBag.AverageRating = db.Ratings.Average(r => r.Val);
+            }
+            else
+            {
+                ViewBag.AverageRating = null;
+            }
+
+            if (User.IsInRole("Administrator"))
+            {
+                return View(db.Ratings.ToList());
+            }
+            else
+            {
+                Rating rating = db.Ratings.Find(User.Identity.GetUserId());
+                if (rating == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(new List<Rating> { rating });
+            }
         }
 
         // GET: Rating/Details/5
@@ -38,10 +60,17 @@ namespace FIT5032_Assignment_Portfolio_V1._0.Controllers
             return View(rating);
         }
 
+       
+
+
         // GET: Rating/Create
         public ActionResult Create()
         {
-            return View();
+            var rating = new Rating
+            {
+                UserId = User.Identity.GetUserId()
+            };
+            return View(rating);
         }
 
         // POST: Rating/Create

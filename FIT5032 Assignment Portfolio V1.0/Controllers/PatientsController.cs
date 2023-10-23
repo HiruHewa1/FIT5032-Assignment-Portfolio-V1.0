@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using FIT5032_Assignment_Portfolio_V1._0.Context;
 using FIT5032_Assignment_Portfolio_V1._0.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FIT5032_Assignment_Portfolio_V1._0.Controllers
 {
+    [Authorize]
     public class PatientsController : Controller
     {
         private UltrasoundDbContext db = new UltrasoundDbContext();
@@ -18,7 +20,20 @@ namespace FIT5032_Assignment_Portfolio_V1._0.Controllers
         // GET: Patients
         public ActionResult Index()
         {
-            return View(db.Patients.ToList());
+            if (User.IsInRole("Administrator"))
+            {
+                return View(db.Patients.ToList());
+            }
+            else
+            {
+                Patient patient = db.Patients.Find(User.Identity.GetUserId());
+                if (patient == null)
+                {
+                    // Handle the case where the patient is not found
+                    return HttpNotFound();
+                }
+                return View(patient);
+            }
         }
 
         // GET: Patients/Details/5

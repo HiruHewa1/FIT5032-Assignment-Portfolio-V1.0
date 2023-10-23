@@ -12,6 +12,7 @@ using FIT5032_Assignment_Portfolio_V1._0.Models;
 
 namespace FIT5032_Assignment_Portfolio_V1._0.Controllers
 {
+    [Authorize]
     public class ImagesController : Controller
     {
         private UltrasoundDbContext db = new UltrasoundDbContext();

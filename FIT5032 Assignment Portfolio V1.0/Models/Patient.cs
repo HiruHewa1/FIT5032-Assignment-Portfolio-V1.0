@@ -9,7 +9,7 @@ namespace FIT5032_Assignment_Portfolio_V1._0.Models
     public class Patient
     {
         [Required]
-        [Range(1, double.PositiveInfinity)]
+        
         public int PatientId { get; set; }
 
         [Required]
@@ -29,7 +29,10 @@ namespace FIT5032_Assignment_Portfolio_V1._0.Models
         [Display(Name = "Input correct Date")]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
-        
+
+      
+        public string userid { get; set; }
+
         public virtual List<Appointment> Appointments { get; set; }
     }
 }
