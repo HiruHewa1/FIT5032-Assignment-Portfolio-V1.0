@@ -30,7 +30,7 @@ namespace FIT5032_Assignment_Portfolio_V1._0.Models
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
-      
+        [Required]
         public string userid { get; set; }
 
         public virtual List<Appointment> Appointments { get; set; }

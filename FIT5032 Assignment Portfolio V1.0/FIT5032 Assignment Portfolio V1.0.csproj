@@ -228,6 +228,10 @@
     <Compile Include="Migrations\202310230506557_Alteruid.designer.cs">
       <DependentUpon>202310230506557_Alteruid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310230612233_reqiruement.cs" />
+    <Compile Include="Migrations\202310230612233_reqiruement.designer.cs">
+      <DependentUpon>202310230612233_reqiruement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -407,6 +411,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310230506557_Alteruid.resx">
       <DependentUpon>202310230506557_Alteruid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310230612233_reqiruement.resx">
+      <DependentUpon>202310230612233_reqiruement.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
